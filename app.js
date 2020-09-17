@@ -69,7 +69,7 @@ function renderBaseElements() {
     <section id="quiz">
       <h2>placeholder</h2>
       <form>
-        <fieldset id="choices" tabindex=0><legend>Question</legend></fieldset>
+        <fieldset id="choices"><legend>Question</legend></fieldset>
         <input type="submit" value="Submit Answer" aria-label="Submit Answer" />
       </form>
     </section>
@@ -166,7 +166,7 @@ function nextQuestion() {
 
 function restartQuiz() {
   $('#restart').click(() => {
-    STORE.started = false;
+    STORE.started = true;
     STORE.score = 0;
     STORE.currentQuestion = 0;
     render();

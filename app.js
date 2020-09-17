@@ -66,15 +66,16 @@ function renderBaseElements() {
     </section>
 
     <section id="quiz">
-      <h2></h2>
+      <h2>placeholder</h2>
       <form>
+        <legend>Question</legend>
         <fieldset id="choices"></fieldset>
         <input type="submit" value="Submit Answer" aria-label="Submit Answer" />
       </form>
     </section>
 
     <section id="feedback">
-      <h2></h2>
+      <h2>placeholder</h2>
       <p class="user-answer"></p>
       <p class="correct-answer"></p>
       <button id="next">Next Question</button>

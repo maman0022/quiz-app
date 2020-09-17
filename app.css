@@ -45,7 +45,7 @@ input[type=submit] {
 }
 
 .center-align{
-  margin-left: unset;
+  text-align: center;
 }
 
 .left-offset{

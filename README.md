@@ -1,1 +1,1 @@
-### Simple and responsive math quiz created by Muhammad Aman and John Wellborn
+### Simple and responsive math quiz created by Muhammad Aman and John Wellbrock

@@ -69,7 +69,7 @@ function renderBaseElements() {
     <section id="quiz">
       <h2>placeholder</h2>
       <form>
-        <fieldset id="choices"><legend>Question</legend></fieldset>
+        <fieldset id="choices" tabindex=0><legend>Question</legend></fieldset>
         <input type="submit" value="Submit Answer" aria-label="Submit Answer" />
       </form>
     </section>
@@ -93,7 +93,7 @@ function renderBaseElements() {
 function renderHeader() {
   $('header').show();
   $('header .score').text(`Score: ${STORE.score}/${STORE.questions.length}`);
-  $('header .progress').text(`Question ${STORE.currentQuestion + 1}/${STORE.questions.length}`);
+  $('header .progress').text(`Question: ${STORE.currentQuestion + 1}/${STORE.questions.length}`);
 }
 
 function renderQuestion() {
@@ -124,7 +124,7 @@ function renderFeedback() {
 
 function renderSummary() {
   $('#summary').show();
-  $('#summary p').text(`Your score is ${STORE.score / STORE.questions.length * 100}%`);
+  $('#summary p').text(`Your score is ${STORE.score}/${STORE.questions.length}`);
 }
 
 

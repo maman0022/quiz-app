@@ -26,7 +26,6 @@ header {
 
 form {
   text-align: left;
-  margin-left: 5%;
 }
 
 input[type=submit] {
@@ -43,4 +42,12 @@ input[type=submit] {
 
 .hidden{
   display: none;
+}
+
+.center-align{
+  margin-left: unset;
+}
+
+.left-offset{
+  margin-left: 5%;
 }

@@ -22,7 +22,7 @@ const STORE = {
       correctAnswer: 3
     },
     {
-      question: 'An integer from 100 through 999, inclusive, is to be chosen at random. What is the probability that the number chosen will have a 0 in at least 1 digit?',
+      question: 'An integer from 100 through 999, inclusive, is to be chosen at random. What is the probability that the number chosen will have a 0 as at least 1 digit?',
       answers: ['19/900', '81/900', '90/900', '171/900'], correctAnswer: 3
     }],
   score: 0,
@@ -71,10 +71,10 @@ function generateFormTemplate(){
   const question = STORE.questions[STORE.currentQuestion];
   let formElements=`
   <section id="quiz">
-      <h2>${question.question}</h2>
       <form>
+        <h2 class='center-align'>${question.question}</h2>
         ${generateAnswersTemplate(question)}
-        <input type="submit" value="Submit Answer" aria-label="Submit Answer" />
+        <input class='left-offset' type="submit" value="Submit Answer" aria-label="Submit Answer" />
       </form>
     </section>
   `;
@@ -89,7 +89,7 @@ function generateAnswersTemplate(question){
         <label for="${i}">${answer}</label><br/>
       `;
   });
-  return answers;
+  return `<div class='left-offset'>${answers}</div>`;
 }
 
 function generateFeedbackTemplate(){

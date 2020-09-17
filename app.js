@@ -68,7 +68,7 @@ function renderBaseElements() {
     <section id="quiz">
       <h2>placeholder</h2>
       <form>
-        <legend>Question</legend>
+        <legend for="choices"></legend>
         <fieldset id="choices"></fieldset>
         <input type="submit" value="Submit Answer" aria-label="Submit Answer" />
       </form>
@@ -111,13 +111,15 @@ function renderQuestion() {
 
 function renderFeedback() {
   $('#feedback').show();
+  $("#feedback h2").removeClass('incorrect');
   $("#feedback h2").text(STORE.hasFeedback);
   $('.user-answer').text('');
   const question = STORE.questions[STORE.currentQuestion];
   if (STORE.hasFeedback === "Incorrect") {
-    $('.user-answer').text(`Your answer ${STORE.guess}`);
+    $('.user-answer').text(`Your answer: ${STORE.guess}`);
+    $("#feedback h2").addClass('incorrect');
   }
-  $('.correct-answer').text(`The correct answer was ${question.answers[question.correctAnswer]}`);
+  $('.correct-answer').text(`The correct answer: ${question.answers[question.correctAnswer]}`);
 }
 
 function renderSummary() {
@@ -137,6 +139,10 @@ function startQuiz() {
 function submitChoice() {
   $('#quiz form').submit(e => {
     e.preventDefault();
+    if(!$('input[type="radio"]:checked').val()){
+      alert('No answer selected');
+      return;
+    }
     const answer = $('input[type="radio"]:checked').val();
     const question = STORE.questions[STORE.currentQuestion];
     if (Number(answer) === question.correctAnswer) {

@@ -1,13 +1,4 @@
-/* Your styles should be mobile-first and responsive */
-
-/** 
-  * If you are unclear on how to utilize a mobile-first, responsive technique to write your CSS, here is an example: 
-  *
-  * https://github.com/andreacardybailey/responsive_example/blob/master/styles/responsive-base.css 
-  *
-*/
-
-body{
+body {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -16,24 +7,30 @@ body{
   color: #2a150d;
   text-align: center;
 }
-header{
+
+header {
   background-color: #2a150d;
   color: #a0aec9;
   width: 100vw;
   text-align: center;
 }
-.progress{
+
+.progress {
   margin-top: 0;
 }
-.score{
+
+.score {
   margin-bottom: 0;
 }
-fieldset{
+
+fieldset {
   text-align: left;
 }
-input[type=submit]{
+
+input[type=submit] {
   margin-top: 20px;
 }
-.incorrect{
+
+.incorrect {
   color: darkred;
 }

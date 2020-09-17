@@ -123,7 +123,7 @@ function renderFeedback() {
 
 function renderSummary() {
   $('#summary').show();
-  $('#summary p').text(`Your score is ${STORE.score/STORE.questions.length*100}%`);
+  $('#summary p').text(`Your score is ${STORE.score / STORE.questions.length * 100}%`);
 }
 
 
@@ -138,14 +138,14 @@ function startQuiz() {
 function submitChoice() {
   $('#quiz form').submit(e => {
     e.preventDefault();
-    if(!$('input[type="radio"]:checked').val()){
+    if (!$('input[type="radio"]:checked').val()) {
       alert('No answer selected');
       return;
     }
     const answer = $('input[type="radio"]:checked').val();
     const question = STORE.questions[STORE.currentQuestion];
     if (Number(answer) === question.correctAnswer) {
-      STORE.score=STORE.score+1;
+      STORE.score = STORE.score + 1;
       STORE.hasFeedback = "Correct";
     } else {
       STORE.guess = STORE.questions[STORE.currentQuestion].answers[answer];

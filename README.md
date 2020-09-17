@@ -1,1 +1,1 @@
-### Boilerplate app structure for Quiz App project
+### Simple and responsive math quiz created by Muhammad Aman and John Wellborn

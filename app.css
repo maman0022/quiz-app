@@ -6,3 +6,31 @@
   * https://github.com/andreacardybailey/responsive_example/blob/master/styles/responsive-base.css 
   *
 */
+
+body{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: auto 10%;
+  background-color: #a0aec9;
+  color: #2a150d;
+  text-align: center;
+}
+header{
+  background-color: #2a150d;
+  color: #a0aec9;
+  width: 100vw;
+  text-align: center;
+}
+.progress{
+  margin-top: 0;
+}
+.score{
+  margin-bottom: 0;
+}
+fieldset{
+  text-align: left;
+}
+input[type=submit]{
+  margin-top: 20px;
+}

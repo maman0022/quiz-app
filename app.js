@@ -33,111 +33,103 @@ const STORE = {
 };
 
 function render() {
-  $('#start').hide();
-  $('#quiz').hide();
-  $('#feedback').hide();
-  $('#summary').hide();
-  $('header').hide();
-
-
+  $('main').empty();
+  $('header').empty();
   if (!STORE.started) {
-    $('#start').show();
+    appendTo('main',generateWelcomeTemplate());
   } else if (STORE.hasFeedback) {
-    renderHeader();
-    renderFeedback();
+    appendTo('header',generateHeaderTemplate());
+    appendTo('main',generateFeedbackTemplate());
   } else if (STORE.currentQuestion < STORE.questions.length) {
-    renderHeader();
-    renderQuestion();
+    appendTo('header',generateHeaderTemplate());
+    appendTo('main',generateFormTemplate());
   } else {
-    renderSummary();
+    appendTo('main',generateSummaryTemplate());
   }
 }
 
-
-function renderBaseElements() {
-  let headerElements = `
-  <p class="score">Score:</p>
-  <p class="progress">0/0</p>
+function generateWelcomeTemplate(){
+  let welcomeScreen=`
+  <section id="start">
+    <h2>Welcome to Math Quiz</h2>
+    <button id="start-quiz">Start</button>
+  </section>
   `;
-  $('header').append(headerElements);
-  let bodyElements = `
-    <section id="start">
-      <h2>Welcome to Math Quiz</h2>
-      <button id="start-quiz">Start</button>
-    </section>
+  return welcomeScreen;
+}
 
-    <section id="quiz">
-      <h2>placeholder</h2>
+function generateHeaderTemplate(){
+  let headerElements = `
+  <h1>Math Quiz</h1>
+  <p class="score">Score: ${STORE.score}/${STORE.questions.length}</p>
+  <p class="progress">Question: ${STORE.currentQuestion + 1}/${STORE.questions.length}</p>
+  `;
+  return headerElements;
+}
+
+function generateFormTemplate(){
+  const question = STORE.questions[STORE.currentQuestion];
+  let formElements=`
+  <section id="quiz">
+      <h2>${question.question}</h2>
       <form>
-        <fieldset id="choices"><legend>Question</legend></fieldset>
+        ${generateAnswersTemplate(question)}
         <input type="submit" value="Submit Answer" aria-label="Submit Answer" />
       </form>
     </section>
-
-    <section id="feedback">
-      <h2>placeholder</h2>
-      <p class="user-answer"></p>
-      <p class="correct-answer"></p>
-      <button id="next">Next Question</button>
-    </section>
-
-    <section id="summary">
-      <h2>Summary</h2>
-      <p></p>
-      <button id="restart">Restart Quiz</button>
-    </section>
   `;
-  $('main').append(bodyElements);
+  return formElements;
 }
 
-function renderHeader() {
-  $('header').show();
-  $('header .score').text(`Score: ${STORE.score}/${STORE.questions.length}`);
-  $('header .progress').text(`Question: ${STORE.currentQuestion + 1}/${STORE.questions.length}`);
-}
-
-function renderQuestion() {
-  $('#quiz').show();
-  const question = STORE.questions[STORE.currentQuestion];
-  $('#quiz h2').text(question.question);
-  $('#choices').html('');
+function generateAnswersTemplate(question){
+  let answers='';
   question.answers.forEach((answer, i) => {
-    $('#choices').append(`
+    answers+=`
         <input type="radio" name="choice" value="${i}" id="${i}"/>
         <label for="${i}">${answer}</label><br/>
-      `);
+      `;
   });
+  return answers;
 }
 
-function renderFeedback() {
-  $('#feedback').show();
-  $('#feedback h2').removeClass('incorrect');
-  $('#feedback h2').text(STORE.hasFeedback);
-  $('.user-answer').text('');
+function generateFeedbackTemplate(){
   const question = STORE.questions[STORE.currentQuestion];
-  if (STORE.hasFeedback === 'Incorrect') {
-    $('.user-answer').text(`Your answer: ${STORE.guess}`);
-    $('#feedback h2').addClass('incorrect');
-  }
-  $('.correct-answer').text(`The correct answer: ${question.answers[question.correctAnswer]}`);
+  let feedback=`
+  <section id="feedback">
+    <h2 class=${STORE.hasFeedback === 'Incorrect'?'incorrect':'correct'}>${STORE.hasFeedback}</h2>
+    <p class="user-answer ${STORE.hasFeedback === 'Correct'?'hidden':''}">Your answer: ${STORE.guess}</p>
+    <p class="correct-answer">The correct answer: ${question.answers[question.correctAnswer]}</p>
+    <button id="next">Next Question</button>
+    </section>
+  `;
+  return feedback;
 }
 
-function renderSummary() {
-  $('#summary').show();
-  $('#summary p').text(`Your score is ${STORE.score}/${STORE.questions.length}`);
+function generateSummaryTemplate(){
+  let summary=`
+  <section id="summary">
+    <h2>Summary</h2>
+    <p>You got ${STORE.score} questions out of ${STORE.questions.length} correct. Your final score is ${STORE.score/STORE.questions.length*100}%</p>
+    <button id="restart">Restart Quiz</button>
+  </section>
+  `;
+  return summary;
 }
 
+function appendTo(element,string){
+  $(element).append(string);
+}
 
 /* listening to events */
-function startQuiz() {
-  $('#start-quiz').click(() => {
+function handleStartQuiz() {
+  $('main').on('click','#start-quiz',() => {
     STORE.started = true;
     render();
   });
 }
 
-function submitChoice() {
-  $('#quiz form').submit(e => {
+function handleSubmitChoice() {
+  $('main').on('submit','#quiz form',e => {
     e.preventDefault();
     if (!$('input[type="radio"]:checked').val()) {
       alert('No answer selected');
@@ -156,16 +148,16 @@ function submitChoice() {
   });
 }
 
-function nextQuestion() {
-  $('#next').click(() => {
+function handleNextQuestion() {
+  $('main').on('click','#next',() => {
     STORE.hasFeedback = false;
     STORE.currentQuestion = STORE.currentQuestion + 1;
     render();
   });
 }
 
-function restartQuiz() {
-  $('#restart').click(() => {
+function handleRestartQuiz() {
+  $('main').on('click','#restart',() => {
     STORE.started = true;
     STORE.score = 0;
     STORE.currentQuestion = 0;
@@ -174,11 +166,10 @@ function restartQuiz() {
 }
 
 function main() {
-  renderBaseElements();
-  startQuiz();
-  submitChoice();
-  nextQuestion();
-  restartQuiz();
+  handleStartQuiz();
+  handleSubmitChoice();
+  handleNextQuestion();
+  handleRestartQuiz();
   render();
 }
 

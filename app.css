@@ -24,8 +24,9 @@ header {
   margin-bottom: 0;
 }
 
-fieldset {
+form {
   text-align: left;
+  margin-left: 5%;
 }
 
 input[type=submit] {
@@ -34,4 +35,12 @@ input[type=submit] {
 
 .incorrect {
   color: darkred;
+}
+
+.correct {
+  color: darkgreen;
+}
+
+.hidden{
+  display: none;
 }

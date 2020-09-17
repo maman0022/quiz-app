@@ -68,8 +68,7 @@ function renderBaseElements() {
     <section id="quiz">
       <h2>placeholder</h2>
       <form>
-        <fieldset id="choices"></fieldset>
-        <legend></legend>
+        <fieldset id="choices"><legend>Question</legend></fieldset>
         <input type="submit" value="Submit Answer" aria-label="Submit Answer" />
       </form>
     </section>

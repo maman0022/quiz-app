@@ -1,3 +1,4 @@
+'use strict';
 const STORE = {
   questions: [
     {
@@ -29,7 +30,7 @@ const STORE = {
   guess: 0,
   started: false,
   hasFeedback: false
-}
+};
 
 function render() {
   $('#start').hide();
@@ -86,7 +87,7 @@ function renderBaseElements() {
       <button id="restart">Restart Quiz</button>
     </section>
   `;
-  $('main').append(bodyElements)
+  $('main').append(bodyElements);
 }
 
 function renderHeader() {
@@ -96,7 +97,7 @@ function renderHeader() {
 }
 
 function renderQuestion() {
-  $("#quiz").show();
+  $('#quiz').show();
   const question = STORE.questions[STORE.currentQuestion];
   $('#quiz h2').text(question.question);
   $('#choices').html('');
@@ -110,13 +111,13 @@ function renderQuestion() {
 
 function renderFeedback() {
   $('#feedback').show();
-  $("#feedback h2").removeClass('incorrect');
-  $("#feedback h2").text(STORE.hasFeedback);
+  $('#feedback h2').removeClass('incorrect');
+  $('#feedback h2').text(STORE.hasFeedback);
   $('.user-answer').text('');
   const question = STORE.questions[STORE.currentQuestion];
-  if (STORE.hasFeedback === "Incorrect") {
+  if (STORE.hasFeedback === 'Incorrect') {
     $('.user-answer').text(`Your answer: ${STORE.guess}`);
-    $("#feedback h2").addClass('incorrect');
+    $('#feedback h2').addClass('incorrect');
   }
   $('.correct-answer').text(`The correct answer: ${question.answers[question.correctAnswer]}`);
 }
@@ -129,10 +130,10 @@ function renderSummary() {
 
 /* listening to events */
 function startQuiz() {
-  $('#start-quiz').click(e => {
+  $('#start-quiz').click(() => {
     STORE.started = true;
     render();
-  })
+  });
 }
 
 function submitChoice() {
@@ -146,17 +147,17 @@ function submitChoice() {
     const question = STORE.questions[STORE.currentQuestion];
     if (Number(answer) === question.correctAnswer) {
       STORE.score = STORE.score + 1;
-      STORE.hasFeedback = "Correct";
+      STORE.hasFeedback = 'Correct';
     } else {
       STORE.guess = STORE.questions[STORE.currentQuestion].answers[answer];
-      STORE.hasFeedback = "Incorrect";
+      STORE.hasFeedback = 'Incorrect';
     }
     render();
-  })
+  });
 }
 
 function nextQuestion() {
-  $('#next').click(e => {
+  $('#next').click(() => {
     STORE.hasFeedback = false;
     STORE.currentQuestion = STORE.currentQuestion + 1;
     render();
@@ -164,12 +165,12 @@ function nextQuestion() {
 }
 
 function restartQuiz() {
-  $('#restart').click(e => {
+  $('#restart').click(() => {
     STORE.started = false;
     STORE.score = 0;
     STORE.currentQuestion = 0;
     render();
-  })
+  });
 }
 
 function main() {
